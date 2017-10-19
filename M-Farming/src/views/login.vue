@@ -10,9 +10,7 @@
 
 </script>
 <style lang="scss">
-
+@import './../../static/scss/_utilities.scss';
 .contaner{
-    background-color: red;
-    height: 10rem;
 }
 </style>
