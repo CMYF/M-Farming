@@ -1,11 +1,16 @@
 <template>
   <div id="app">
     <router-view/>
+    <c-footer></c-footer>
   </div>
 </template>
 
 <script>
+import CFooter from './components/Footer'
 export default {
+  components: {
+    CFooter
+  },
   name: 'app'
 }
 </script>
@@ -22,6 +27,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
