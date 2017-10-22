@@ -51,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        let localUserInfo = localStorage.uinfo;
+      /*   let localUserInfo = localStorage.uinfo;
         if (!localUserInfo) {
             this.$router.push('/login');
             return; 
@@ -59,7 +59,7 @@ export default {
         localUserInfo = JSON.parse(localUserInfo);
         this.userInfo.accName = localUserInfo.opername;
         this.userInfo.userType = localUserInfo.operrole;
-        this.userInfo.loginTime = localUserInfo.logintime;
+        this.userInfo.loginTime = localUserInfo.logintime; */
     },
     methods: {
         loginOut() {
