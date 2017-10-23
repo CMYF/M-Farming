@@ -47,7 +47,7 @@ export default {
 }
 </script>
 <style lang="scss">
-@import url('./../../node_modules/swiper/dist/css/swiper.css');
+//@import url('./../../node_modules/swiper/dist/css/swiper.css');
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';

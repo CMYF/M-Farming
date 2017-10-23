@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/test'
 import Login from '@/views/Login'
-import Home from '@/views/HomePage'
+import Home from '@/views/_Index'
 import MyCenter from '@/views/MyCenter'
-
+import TaskList from '@/views/HomePage'
 Vue.use(Router)
 
 export default new Router({
@@ -13,17 +13,35 @@ export default new Router({
     {
       path: '/home',
       name: 'Home',
-      component: Home
+      components: {
+        Home: Home,
+        Login: ''
+      },
+      children: [
+        {
+          path: '/home',
+          name: 'Task',
+          components: {
+            VMMain: TaskList
+          }
+        },
+        {
+          path: '/mycenter',
+          name: 'Center',
+          components: {
+            VMMain: MyCenter
+          }
+        }
+      ]
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      components: {
+        Login: Login,
+
+      }
     },
-    {
-      path: '/mycenter',
-      name: 'Center',
-      component: MyCenter
-    }
+
   ]
 })
