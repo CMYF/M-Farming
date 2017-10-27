@@ -42,15 +42,7 @@ export default {
             console.log(this.navs);
             self.$router.push(router);
         });
-        window.setTimeout(function () {
-            currentPath = self.$route.path;
-            if (currentPath === '/login') {
-                self.isShowNavs = 'none !important';
-            } else {
-                self.isShowNavs = 'flex !important';
-            }
-        }, 300);
-        let tempItem = {};
+        /*let tempItem = {};
         let tempNavs = [];
         for (let i = 0, len = self.navs.length; i < len; i++) {
             tempItem = self.navs[i];
@@ -61,7 +53,7 @@ export default {
             }
             tempNavs.push(tempItem);
         }
-        this.navs = tempNavs;
+        this.navs = tempNavs;*/
 
     },
     methods: {
@@ -72,7 +64,7 @@ export default {
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';

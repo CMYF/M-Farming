@@ -1,7 +1,7 @@
 <template>
     <div class="contaner">
         <div class="logo-box">
-            <img src="./../assets/images/logo.png" alt="">
+            <img src="./../assets/images/login-logo.png" alt="">
         </div>
         <div class="form-box">
             <div class="form-item-box">
@@ -18,11 +18,14 @@
         <div class="btn-box">
             <mt-button type="default" @click.native="login" size="large">登录</mt-button>
         </div>
+        <div class="version-box">
+            <span>标准化生产管理平台 v1.0.0</span>
+        </div>
     </div>
 </template>
 <script>
 import store from './../store/index'
-import  _C  from './../utils/_C'
+import _C from './../utils/_C'
 function fetchLogin(store, opts) {
     return store.dispatch('LOGIN', opts);
 }
@@ -40,7 +43,7 @@ export default {
         }
     },
     methods: {
-        login(){
+        login() {
             console.log(_C);
             let name = this.loginForm.name;
             let pass = this.loginForm.pass;
@@ -49,13 +52,14 @@ export default {
                 this.errInfo = '*必须输入用户名和密码！';
                 return;
             }
-             this.isShowError = 'hidden';
-                this.errInfo = '';
+            this.isShowError = 'hidden';
+            this.errInfo = '';
             fetchLogin(this.$store, this.loginForm).then(() => {
                 console.log('登录能成功吗？');
                 let tempData = this.$store.getters.getLoginInfo;
                 if (tempData.resultCode === '1') {
                     let tempObj = tempData.resultObj;
+                    localStorage.token = tempObj.token;
                     _C._C.setCookie('token', tempObj.token, 1);
                     localStorage.uinfo = JSON.stringify(tempObj);
                     this.$router.push('/home');
@@ -72,16 +76,23 @@ export default {
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
-.footer-box{
+body {
+    background-color: #f5f5f5;
+}
+
+.footer-box {
     display: none !important;
 }
+
 .contaner {
     @include rem(( width: 667px));
-    height: auto;
+    height: 100vh;
     margin: 0px auto;
-    margin-top: 2.33rem;    
+    overflow: hidden;
     .logo-box {
-        width: 100%;
+        width: 5rem;
+        margin: 0px auto;
+        margin-top: 2.33rem;
         img {
             width: 100%;
             height: auto;
@@ -89,8 +100,7 @@ export default {
         }
     }
     .form-box {
-        border: 1px solid #ccc;
-        border-radius: 0.10rem;
+        background-color: $white; //border-radius: 0.20rem;
         padding-top: .4rem;
         padding-bottom: .4rem;
         padding-left: .26rem;
@@ -107,6 +117,7 @@ export default {
                 height: 80px));
                 @include font-dpr(24px, 1.06rem);
                 color: $m-black--ccc;
+                color: $m-main--b;
             }
             .mint-cell {
                 min-height: 40px;
@@ -117,7 +128,7 @@ export default {
                 line-height: 80px,
                 height: 80px));
                 height: 1.06667rem !important;
-                .mintui{
+                .mintui {
                     font-size: 24px;
                 }
             }
@@ -128,7 +139,7 @@ export default {
             }
         }
         .form-item-box:first-child {
-            border-bottom: .026rem solid #ccc;
+            border-bottom: .04rem solid #ccc;
             padding-bottom: .2rem;
         }
         .form-item-box:last-child {
@@ -142,15 +153,20 @@ export default {
         @include rem(( height: 60px));
         @include font-dpr(14px, .8rem);
         text-align: left;
-        
     }
-    .btn-box{
+    .btn-box {
         margin-top: .25rem;
-        .mint-button--default{
+        .mint-button--default {
             background-color: $m-main--b;
             color: $white;
-
         }
+    }
+    .version-box {
+        position: absolute;
+        left: 0px;
+        bottom: .3rem;
+        width: 100vw;
+        color: $m-black-6;
     }
 }
 </style>
