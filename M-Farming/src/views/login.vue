@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-box">
         <div class="container-sub-box">
             <div class="logo-box">
                 <img src="./../assets/images/login-logo.png" alt="">
@@ -81,7 +81,7 @@ export default {
 .footer-box {
     display: none !important;
 }
-.container{
+.container-box{
     width: 100vw;
     width: 100%;
     height: 100vh;
