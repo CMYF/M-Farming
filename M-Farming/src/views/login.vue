@@ -1,25 +1,27 @@
 <template>
-    <div class="contaner">
-        <div class="logo-box">
-            <img src="./../assets/images/login-logo.png" alt="">
-        </div>
-        <div class="form-box">
-            <div class="form-item-box">
-                <span class="iconfont user-name-icon user-icon">&#xe782;</span>
-                <mt-field class="form-item user-name" placeholder="请输入用户名" v-model="loginForm.name"></mt-field>
+    <div class="container">
+        <div class="container-sub-box">
+            <div class="logo-box">
+                <img src="./../assets/images/login-logo.png" alt="">
             </div>
-            <div class="form-item-box">
-                <span class="iconfont user-pass-box user-icon">&#xe7d8;</span>
-                <mt-field class="form-item user-pass" type="password" placeholder="请输入密码" v-model="loginForm.pass"></mt-field>
+            <div class="form-box">
+                <div class="form-item-box">
+                    <span class="iconfont user-name-icon user-icon">&#xe782;</span>
+                    <mt-field class="form-item user-name" placeholder="请输入用户名" v-model="loginForm.name"></mt-field>
+                </div>
+                <div class="form-item-box">
+                    <span class="iconfont user-pass-box user-icon">&#xe7d8;</span>
+                    <mt-field class="form-item user-pass" type="password" placeholder="请输入密码" v-model="loginForm.pass"></mt-field>
+                </div>
             </div>
-        </div>
-        <span class="err-info" :style="{ visibility: this.isShowError }">{{ this.errInfo }}</span>
+            <span class="err-info" :style="{ visibility: this.isShowError }">{{ this.errInfo }}</span>
 
-        <div class="btn-box">
-            <mt-button type="default" @click.native="login" size="large">登录</mt-button>
-        </div>
-        <div class="version-box">
-            <span>标准化生产管理平台 v1.0.0</span>
+            <div class="btn-box">
+                <mt-button type="default" @click.native="login" size="large">登录</mt-button>
+            </div>
+            <div class="version-box">
+                <span>标准化生产管理平台 v1.0.0</span>
+            </div>
         </div>
     </div>
 </template>
@@ -76,15 +78,16 @@ export default {
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
-body {
-    background: #f5f5f5 !important;
-}
-
 .footer-box {
     display: none !important;
 }
-
-.contaner {
+.container{
+    width: 100vw;
+    width: 100%;
+    height: 100vh;
+    background: #f5f5f5 ;
+}
+.container-sub-box {
     @include rem(( width: 667px));
     height: 100vh;
     margin: 0px auto;
