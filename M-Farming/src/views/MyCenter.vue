@@ -6,26 +6,35 @@
                 </mt-button>
             </mt-header>
             <div class="center-box">
-                <div class="user-name-box">
-                    <span class="user-ex">账号名称</span>
-                    <span class="user-text">
-                        {{ userInfo.accName }}
-                        <span class="iconfont to-icon">&#xe78b;</span>
-                    </span>
+                <div class="bg-box">
+                    <div class="user-pic-box">
+                        <div class="pic-box">
+                            <span class="iconfont user-pic">&#xe783;</span>
+                        </div>
+                        <span class="user-name"> {{ userInfo.accName }}</span>
+                    </div>
                 </div>
-                <div class="user-name-box">
-                    <span class="user-ex">用户类型</span>
-                    <span class="user-text">
-                        {{ userInfo.userType }}
-                        <span class="iconfont"></span>
-                    </span>
-                </div>
-                <div class="user-name-box">
-                    <span class="user-ex">登录时间</span>
-                    <span class="user-text">
-                        {{ userInfo.loginTime }}
-                        <span class="iconfont"></span>
-                    </span>
+                <div class="acc-box">
+                    <div class="user-name-box">
+                        <span class="user-ex">
+                            <span class="iconfont user-txt-icon user-name-icon">&#xe793;</span>
+                            用户类型
+                        </span>
+                        <span class="user-text">
+                            {{ userInfo.userType }}
+                            <span class="iconfont"></span>
+                        </span>
+                    </div>
+                    <div class="user-name-box">
+                        <span class="user-ex">
+                            <span class="iconfont user-txt-icon login-time-icon"> &#xe7bc;</span>
+                            登录时间
+                        </span>
+                        <span class="user-text">
+                            {{ userInfo.loginTime }}
+                            <span class="iconfont"></span>
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="btn-box">
@@ -35,7 +44,7 @@
     </div>
 </template>
 <script>
-import _C  from './../utils/_C'
+import _C from './../utils/_C'
 export default {
     components: {
     },
@@ -51,21 +60,22 @@ export default {
         }
     },
     mounted() {
-      /*   let localUserInfo = localStorage.uinfo;
+        let localUserInfo = localStorage.uinfo;
         if (!localUserInfo) {
             this.$router.push('/login');
-            return; 
+            return;
         }
         localUserInfo = JSON.parse(localUserInfo);
         this.userInfo.accName = localUserInfo.opername;
         this.userInfo.userType = localUserInfo.operrole;
-        this.userInfo.loginTime = localUserInfo.logintime; */
+        this.userInfo.loginTime = localUserInfo.logintime;
     },
     methods: {
         loginOut() {
-           localStorage.uinfo = '';
-           _C._C.setCookie('token', '', 0);
-           this.$router.push('/login');
+            localStorage.uinfo = '';
+            localStorage.token = '';
+            _C._C.setCookie('token', '', 0);
+            this.$router.push('/login');
         },
 
 
@@ -118,29 +128,82 @@ export default {
     }
     .center-box {
         width: 100%;
-        margin-top: .25rem;
+    }
+    .bg-box {
+        background-color: $m-main--b;
+        height: 3.5rem;
+        position: relative;
+    }
+    .user-pic-box {
+        position: absolute;
+        bottom: -1.2rem;
+        left: 0px;
+        width: 100vw;
+        .user-name {
+            display: inline-block;
+            width: 100vw;
+            text-align: center;
+            color: $m-black-3;
+            @include rem(( height: 40px,
+            line-height: 40px,
+            font-size: .5rem,
+            ));
+        }
+    }
+    .pic-box {
+        width: 2rem;
+        border-radius: 50%;
+        height: 2rem;
+        background-color: #f0f0f0;
+        line-height: 2rem;
+        text-align: center;
+        border: .04rem solid $m-main--b;
+        margin: 0px auto;
+        .user-pic {
+            font-size: 1.2rem;
+            color: $white;
+            display: block;
+        }
+    }
+    .acc-box {
+        margin-top: 2rem;
+        border-bottom: .04rem solid #ccc;
+        border-top: .04rem solid #ccc;
     }
     .user-name-box {
-        width: 95%;
+        width: calc(100% - 4%);
+        width: -webkit-calc(100% - 4%);
         margin: 0px auto;
         @include rem(( height: 100px,
         line-height: 100px));
-        border-bottom: .01rem solid #ccc;
         .user-ex {
             @include font-dpr(16px, 1.33rem);
-            width: 25%;
+            width: 30%;
         }
         .user-text {
             display: inline-block;
-            width: 74%;
+            width: 68%;
             text-align: right;
             @include font-dpr(16px, 1.33rem);
             color: $m-black-9;
         }
+        .user-txt-icon{
+            font-size: 20px;
+        }
+        .user-name-icon{
+           color: #ffda68;
+        }
+        .login-time-icon{
+           color: #71bfff;
+        }
         .to-icon {
             font-size: 22px;
             vertical-align: middle;
+            display: none;
         }
+    }
+    .user-name-box:first-child {
+        border-bottom: .04rem solid #ccc;
     }
     .btn-box {
         width: 95%;

@@ -32,47 +32,20 @@ export default {
     },
     mounted() {
         let self = this;
-        let currentPath = self.$route.path;
         _j('.nav-item').unbind('click').on('click', function() {
             let _t = _j(this);
             let router = _t.attr('data-rou');
             let idx = Number(_t.attr('data-idx'));
             _t.siblings('.nav-item').removeClass('is-selected');
             _t.addClass('is-selected');
-            console.log(this.navs);
             self.$router.push(router);
         });
-        window.setTimeout(function () {
-            currentPath = self.$route.path;
-            if (currentPath === '/login') {
-                self.isShowNavs = 'none !important';
-            } else {
-                self.isShowNavs = 'flex !important';
-            }
-        }, 300);
-        let tempItem = {};
-        let tempNavs = [];
-        for (let i = 0, len = self.navs.length; i < len; i++) {
-            tempItem = self.navs[i];
-            if (currentPath === tempItem.router) {
-                tempItem.isSelect = true;
-            } else {
-                tempItem.isSelect = false;
-            }
-            tempNavs.push(tempItem);
-        }
-        this.navs = tempNavs;
-
     },
     methods: {
-        selectNavs(e) {
-            e.stopPropagation();
-            console.log(e);
-        }
     }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
