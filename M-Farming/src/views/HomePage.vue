@@ -90,11 +90,6 @@ export default {
                 window.mobile.qrScan("window.mobile['getQr']");
             }
         },
-        /* inhanleTempTask(batchNo, sort){
-             console.log('=======================');
-             console.log(batchNo);
-             console.log(sort);
-         },*/
         taskEnd() {
             bus.$emit('get-end-task');
         },
@@ -108,7 +103,10 @@ export default {
             bus.$emit('get-distribute-task');
         }
 
-    }
+    },
+    beforeDestoryed(){
+        
+    },
 }
 </script>
 <style lang="scss">

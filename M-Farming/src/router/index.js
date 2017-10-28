@@ -8,7 +8,7 @@ import TaskList from '@/views/HomePage'
 Vue.use(Router)
 
 export default new Router({
-  base: '/html/appagriculture/',
+ // base: '/html/appagriculture/',
   routes: [
     {
       path: '/',

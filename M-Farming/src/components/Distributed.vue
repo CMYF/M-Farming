@@ -1,6 +1,7 @@
 <template>
     <div class="swiper-box">
-        <div v-if="isHasData">
+        <mt-spinner class="loading-icon" type="fading-circle" color="#02bdad" v-show="isShowLoadingIcon"></mt-spinner>
+        <div v-show="isHasData">
             <swiper :options="swiperOption" ref="mySwiper">
                 <swiper-slide v-for="(item,index) in swiperDatas" :key="index" :style="{ backgroundColor: item.color }">
                     <div class="main-box">
@@ -43,15 +44,15 @@
                                 </li>
                             </ul>
                             <!-- <div class="icon-box">
-                                                            <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
-                                                        </div>-->
+                                                                                    <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
+                                                                                </div>-->
                         </div>
                     </div>
                 </swiper-slide>
-                <div class="swiper-pagination" slot="pagination"></div>
+                <div class="swiper-pagination" v-show="isHasData" slot="pagination"></div>
             </swiper>
         </div>
-        <span class="emptry-box" v-if="!isHasData">{{ emptryText }}</span>
+        <span class="emptry-box" v-if="isEmptryData">{{ emptryText }}</span>
     </div>
 </template>
 <script>
@@ -83,21 +84,22 @@ export default {
                 state: 20
             },
             emptryText: '暂没有数据',
-            isHasData: true,
+            isHasData: false,
+            isEmptryData: false,
             swipers: [],
             items: [1, 2, 3, 4, 5],
             swiperDatas: [],
-            teskItems: []
+            teskItems: [],
+            isShowLoadingIcon: true
         }
     },
     beforeMount() {
-        let self = this;
-        bus.$on('get-distribute-task', () => {
-            fetchGetDistributeTask(this.$store, this.opts).then(() => {
-                self.descDatas();
-            })
-        })
 
+
+    },
+    created() {
+        let self = this;
+        bus.$on('get-distribute-task', self.emitGetTasks)
     },
     mounted() {
 
@@ -114,6 +116,12 @@ export default {
             dom.addClass('show');
             taskListBox.slideDown(500);
         },
+        emitGetTasks() {
+            fetchGetDistributeTask(this.$store, this.opts).then(() => {
+                console.log('还是要执行几次？？？');
+                this.descDatas();
+            })
+        },
         makeTask(e) {
             let dom = _j(e.currentTarget);
             let tempArr = dom.attr('data-info').split('|');
@@ -129,11 +137,11 @@ export default {
                 let tempObj = tempData.basePageObj;
                 let tempTasks = tempObj.dataList;
                 if (tempTasks.length <= 0) {
-                    this.isHasData = false;
+                    this.isShowLoadingIcon = false;
+                    this.isEmptryData = true;
                     this.emptryText = '暂没有数据'
                     return false;
                 }
-                this.isHasData = true;
                 let tempItem = {};
                 let tempTask = {}, tempBatch = '', tempDate = '', tasks = [], isTemporaryTask = false;
                 this.swiperDatas.length = 0;
@@ -178,6 +186,9 @@ export default {
                     }
                     this.swiperDatas.push(tempTask);
                 }
+                this.isHasData = true;
+                this.isShowLoadingIcon = false;
+                this.isEmptryData = false;
             } else {
                 this.emptryText = tempData.resultMsg;
             }
@@ -185,7 +196,10 @@ export default {
         getTaskInfo() {
 
         }
-    }
+    },
+    beforeDestroy() {
+        bus.$off('get-distribute-task', this.emitGetTasks)
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -215,6 +229,14 @@ export default {
     .swiper-pagination-bullet-active {
         background: #ff7976;
     }
+}
+
+.loading-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 0px auto;
+    margin-top: .5rem;
 }
 
 .emptry-box {
@@ -280,11 +302,15 @@ export default {
         .info-tip {
             width: 43%;
             float: left;
+            height: 1.33rem;
+            overflow: hidden;
             display: inline-block;
         }
         .info-txt {
             width: 57%;
             float: left;
+            height: 1.33rem;
+            overflow: hidden;
             display: inline-block;
         }
     }

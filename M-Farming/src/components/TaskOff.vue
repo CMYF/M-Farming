@@ -1,8 +1,9 @@
 <template>
     <div class="end-task-box">
-        <div v-if="isHasData">
+        <mt-spinner class="loading-icon" type="fading-circle" color="#02bdad" v-show="isShowLoadingIcon"></mt-spinner>
+        <div v-show="isHasData">
             <div class="main-box" v-for="(item,index) in swiperDatas" :key="index" :style="{ backgroundColor: item.color }">
-                <span class="min-box">2分钟前</span>
+                <span class="min-box"></span>
                 <div class="border-box">
                     <ul class="task-info-box">
                         <li class="info-item">
@@ -62,13 +63,17 @@ export default {
                 pageSize: 99,
                 state: 40
             },
-             emptryText: '暂没有数据',
+            emptryText: '暂没有数据',
             isHasData: true,
             swiperDatas: [],
+            isShowLoadingIcon: true
         }
     },
     mounted() {
 
+    },
+    created() {
+        bus.$on('get-end-task', this.emitGetEndTask)
     },
     methods: {
         descDatas() {
@@ -81,7 +86,6 @@ export default {
                     this.emptryText = '暂没有数据'
                     return false;
                 }
-                this.isHasData = true;
                 let tempItem = {};
                 let tempTask = {}, tempBatch = '', tempDate = '', tasks = [];
                 this.swiperDatas.length = 0;
@@ -122,6 +126,8 @@ export default {
                     }
                     this.swiperDatas.push(tempTask);
                 }
+                this.isShowLoadingIcon = false;
+                this.isHasData = true;
             } else {
                 this.emptryText = tempData.resultMsg;
             }
@@ -137,14 +143,15 @@ export default {
             dom.addClass('show');
             taskListBox.slideDown(500);
         },
-    },
-    beforeMount() {
-        bus.$on('get-end-task', () => {
+        emitGetEndTask() {
             fetchGetDistributeTask(this.$store, this.opts).then(() => {
                 this.descDatas();
             });
-        })
+        }
     },
+    beforeDestroy() {
+        bus.$off('get-end-task', this.emitGetEndTask);
+    }
 }
 </script>
 <style lang="scss" scoped>
@@ -153,6 +160,14 @@ export default {
 @import './../assets/sass/common.scss';
 .end-task-box {
     padding-bottom: 2.3rem;
+}
+
+.loading-icon {
+    display: block;
+    width: 28px;
+    height: 28px;
+    margin: 0px auto;
+    margin-top: .5rem;
 }
 
 .emptry-box {
@@ -189,7 +204,7 @@ export default {
     }
     .min-box {
         width: 99%;
-        height: 1rem;
+        height: .53rem;
         display: block;
         @include font-dpr(15px, 1rem);
         text-align: right;

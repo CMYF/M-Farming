@@ -83,7 +83,7 @@ export default {
             ],
         }
     },
-    mounted() {
+    created() {
         bus.$on('get-handle-task', (no) => {
             if (!no) {
                 this.emptryText = '暂没有数据'
@@ -119,6 +119,9 @@ export default {
             }
 
         });
+    },
+    mounted() {
+
     },
     methods: {
         showMoreLinkInfo(e) {
@@ -206,12 +209,16 @@ export default {
                 inpVal = inpDom.val();
                 inpText = inpDom.attr('data-text');
                 if (!inpVal) {
-                    alert(inpText + '不能为空！');
+                    /* this.Toast({
+                         message: inpText + '不能为空！',
+                         position: 'middle',
+                         duration: 1500
+                     });*/
+                    alert('请输入' + inpText);
                     return;
                 }
                 tempParams[inpName] = inpVal;
             }
-            alert('还有执行？');
             let params = JSON.stringify(tempParams);
             this.opts.params = params;
             fetchFinishTask(this.$store, this.opts).then(() => {
@@ -226,6 +233,10 @@ export default {
                 }
             })
         }
+    },
+    beforeDestroy(){
+        bus.$off('get-handle-task');
+        bus.$off('get-temp-handle-task');
     }
 }
 </script>
