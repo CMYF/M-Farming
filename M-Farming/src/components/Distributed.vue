@@ -10,7 +10,7 @@
                                     <span class="info-tip">批次编号：</span>
                                     <span class="info-txt">{{ item.batch }}</span>
                                 </li>
-                                <li class="info-item">
+                                <li class="info-item" v-if="!item.isTempTask">
                                     <span class="info-tip">资源编号：</span>
                                     <span class="info-txt">{{ item.sourceNo }}</span>
                                 </li>
@@ -26,6 +26,9 @@
                                     <span class="info-tip">派发时间：</span>
                                     <span class="info-txt">{{ item.distributeTime }}</span>
                                 </li>
+                                <li class="info-item make-task" v-if="item.isTempTask">
+                                    <span class="in-handle-task" v-bind:data-info="item.batchNo + '|' + item.sort" @click="makeTask">处理此任务</span>
+                                </li>
                                 <li class="info-item" v-if="item.isHasTasks">
                                     <span class="info-tip">任务内容：</span>
                                     <span class="info-txt">
@@ -40,8 +43,8 @@
                                 </li>
                             </ul>
                             <!-- <div class="icon-box">
-                                                        <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
-                                                    </div>-->
+                                                            <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
+                                                        </div>-->
                         </div>
                     </div>
                 </swiper-slide>
@@ -111,6 +114,15 @@ export default {
             dom.addClass('show');
             taskListBox.slideDown(500);
         },
+        makeTask(e) {
+            let dom = _j(e.currentTarget);
+            let tempArr = dom.attr('data-info').split('|');
+            let batchNo = tempArr[0];
+            let sort = tempArr[1];
+            if (batchNo && sort) {
+                bus.$emit('get-temp-task', batchNo, sort)
+            }
+        },
         descDatas() {
             let tempData = this.$store.getters.getTaskInfos;
             if (tempData.resultCode === '1') {
@@ -123,7 +135,7 @@ export default {
                 }
                 this.isHasData = true;
                 let tempItem = {};
-                let tempTask = {}, tempBatch = '', tempDate = '', tasks = [];
+                let tempTask = {}, tempBatch = '', tempDate = '', tasks = [], isTemporaryTask = false;
                 this.swiperDatas.length = 0;
                 for (let i = 0, len = tempTasks.length; i < len; i++) {
                     tempItem = tempTasks[i];
@@ -133,13 +145,17 @@ export default {
                         tempBatch = tempItem.picibianh;
                     }
                     tempDate = tempItem.distributetime.substring(0, tempItem.distributetime.lastIndexOf(' '));
+                    isTemporaryTask = (tempItem.taskType === '1') ? false : true;
                     tempTask = {
                         batch: tempBatch,
+                        batchNo: tempItem.picibianh,
                         sourceNo: '',
                         productName: tempItem.productName,
                         linkName: tempItem.linkIdName,
                         taskDesc: '',
-                        distributeTime: tempDate
+                        distributeTime: tempDate,
+                        isTempTask: isTemporaryTask,
+                        sort: tempItem.sort
                     }
                     tasks = tempItem.keyValueLists;
                     if (tasks.length > 0) {
@@ -272,13 +288,6 @@ export default {
             display: inline-block;
         }
     }
-    /*.icon-box {
-        position: absolute;
-        bottom: 0px;
-        left: 0px;
-        height: 1rem;
-        width: 100%;
-        @include font-dpr(16px, 1rem);*/
     .arrowr-icon {
         display: inline-block;
         width: 1rem;
@@ -305,6 +314,14 @@ export default {
         -moz-transform: rotate(90deg);
         -ms-transform: rotate(90deg);
         -o-transform: rotate(90deg);
-    } //}
+    }
+    .make-task {
+        text-align: center;
+    }
+    .in-handle-task {
+        display: inline-block;
+        text-decoration: underline;
+        color: $m-main--b;
+    }
 }
 </style>

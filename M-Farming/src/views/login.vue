@@ -77,7 +77,7 @@ export default {
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
 body {
-    background-color: #f5f5f5;
+    background: #f5f5f5 !important;
 }
 
 .footer-box {

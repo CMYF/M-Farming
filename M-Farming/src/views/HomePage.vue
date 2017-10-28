@@ -57,6 +57,10 @@ export default {
         }
     },
     beforeMount() {
+        bus.$on('get-temp-task', (batchNo, sort) => {
+            this.active = '2';
+            this.tempTaskHandle(batchNo, sort);
+        })
     },
     mounted() {
         let self = this;
@@ -84,14 +88,21 @@ export default {
                     }
                 }
                 window.mobile.qrScan("window.mobile['getQr']");
-
             }
         },
+        /* inhanleTempTask(batchNo, sort){
+             console.log('=======================');
+             console.log(batchNo);
+             console.log(sort);
+         },*/
         taskEnd() {
             bus.$emit('get-end-task');
         },
         taskHandle() {
             bus.$emit('get-handle-task', this.id);
+        },
+        tempTaskHandle(batchNo, sort) {
+            bus.$emit('get-temp-handle-task', batchNo, sort);
         },
         distributeTask() {
             bus.$emit('get-distribute-task');

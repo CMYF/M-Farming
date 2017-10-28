@@ -2,7 +2,7 @@
     <div class="end-task-box">
         <div v-if="isHasData">
             <div class="main-box" v-for="(item,index) in swiperDatas" :key="index" :style="{ backgroundColor: item.color }">
-                <span class="min-box">2分钟前</span>
+                <span class="min-box hide">2分钟前</span>
                 <div class="border-box">
                     <ul class="task-info-box">
                         <li class="info-item">
@@ -35,7 +35,7 @@
                                 <span class="info-tip">{{ task.text }} :</span>
                                 <span class="info-txt" v-if="!task.isInput">{{ task.val }}</span>
                                 <span class="info-txt" v-if="task.isInput">
-                                    <input type="text" class="task-inp" :data-name="task.name" :name="'handleTaskInp'">
+                                    <input type="text" class="task-inp" :data-name="task.name" :data-text="task.text" :name="'handleTaskInp'">
                                 </span>
                             </li>
                         </ul>
@@ -102,9 +102,7 @@ export default {
                     if (batchNo && sort) {
                         this.opts.batchNo = batchNo;
                         this.opts.sort = sort;
-                        fetchGetHandleInfos(this.$store, this.opts).then(() => {
-                            this.descDatas();
-                        });
+                        this.commonFetchHanleTask();
                     }
                 } else {
                     this.emptryText = tempData.resultMsg;
@@ -113,6 +111,14 @@ export default {
             });
 
         })
+        bus.$on('get-temp-handle-task', (batchNo, sort) => {
+            if (batchNo && sort) {
+                this.opts.batchNo = batchNo;
+                this.opts.sort = sort;
+                this.commonFetchHanleTask();
+            }
+
+        });
     },
     methods: {
         showMoreLinkInfo(e) {
@@ -125,6 +131,11 @@ export default {
             }
             dom.addClass('show');
             taskListBox.slideDown(500);
+        },
+        commonFetchHanleTask() {
+            fetchGetHandleInfos(this.$store, this.opts).then(() => {
+                this.descDatas();
+            });
         },
         descDatas() {
             let tempData = this.$store.getters.getHandleInfo;
@@ -186,10 +197,21 @@ export default {
             let inps = _j('input[name="handleTaskInp"]');
             let inpDom = '';
             let tempParams = {}
+            let inpName = '';
+            let inpVal = '';
+            let inpText = '';
             for (let i = 0, len = inps.length; i < len; i++) {
                 inpDom = _j(inps[i]);
-                tempParams['' + inpDom.attr('data-name') + ''] = inpDom.val();
+                inpName = inpDom.attr('data-name');
+                inpVal = inpDom.val();
+                inpText = inpDom.attr('data-text');
+                if (!inpVal) {
+                    alert(inpText + '不能为空！');
+                    return;
+                }
+                tempParams[inpName] = inpVal;
             }
+            alert('还有执行？');
             let params = JSON.stringify(tempParams);
             this.opts.params = params;
             fetchFinishTask(this.$store, this.opts).then(() => {
@@ -199,6 +221,8 @@ export default {
                     this.isShowSuccessBtn = false;
                     this.isHasData = false;
                     this.emptryText = '该数据已到已完成栏下';
+                } else {
+                    alert(tempData.resultMsg);
                 }
             })
         }
