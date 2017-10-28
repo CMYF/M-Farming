@@ -114,6 +114,9 @@ export default {
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
+body{
+    background: #fff !important;
+}
 .winItem {
     display: block;
     width: 100%;

@@ -86,7 +86,9 @@ export default {
 @import './../assets/sass/_rem.scss';
 @import './../assets/sass/cmy_variable.scss';
 @import './../assets/sass/common.scss';
-
+body{
+    background: #fff;
+}
 .container {
     .mint-header {
         @include rem(( height: 100px));
