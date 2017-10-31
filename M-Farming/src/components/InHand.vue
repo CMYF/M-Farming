@@ -85,6 +85,7 @@ export default {
     },
     created() {
         bus.$on('get-handle-task', (no) => {
+            this.emptryText = '暂时没有数据'
             if (!no) {
                 this.emptryText = '暂没有数据'
                 return false;
@@ -234,7 +235,7 @@ export default {
             })
         }
     },
-    beforeDestroy(){
+    beforeDestroy() {
         bus.$off('get-handle-task');
         bus.$off('get-temp-handle-task');
     }

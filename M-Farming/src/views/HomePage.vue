@@ -95,6 +95,7 @@ export default {
         },
         taskHandle() {
             bus.$emit('get-handle-task', this.id);
+            this.id = '';
         },
         tempTaskHandle(batchNo, sort) {
             bus.$emit('get-temp-handle-task', batchNo, sort);

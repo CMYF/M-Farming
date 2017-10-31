@@ -44,8 +44,8 @@
                                 </li>
                             </ul>
                             <!-- <div class="icon-box">
-                                                                                    <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
-                                                                                </div>-->
+                                                                                        <span class="iconfont arrowr-icon" @click="showMoreLinkInfo($event)">&#xe7cc;</span>
+                                                                                    </div>-->
                         </div>
                     </div>
                 </swiper-slide>
@@ -81,7 +81,7 @@ export default {
             opts: {
                 currentPage: 1,
                 pageSize: 99,
-                state: 20
+                state: '20,30'
             },
             emptryText: '暂没有数据',
             isHasData: false,
@@ -229,6 +229,12 @@ export default {
     .swiper-pagination-bullet-active {
         background: #ff7976;
     }
+}
+
+.swiper-pagination {
+    width: 80%;
+    margin: 0px auto;
+    margin-top: 20px;
 }
 
 .loading-icon {
