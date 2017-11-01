@@ -28,7 +28,7 @@
                                     <span class="info-txt">{{ item.distributeTime }}</span>
                                 </li>
                                 <li class="info-item make-task" v-if="item.isTempTask">
-                                    <span class="in-handle-task" v-bind:data-info="item.batchNo + '|' + item.sort" @click="makeTask">处理此任务</span>
+                                    <span class="in-handle-task" v-bind:data-info="item.batchNo + '|' + item.sort" @click="makeTask">处理任务</span>
                                 </li>
                                 <li class="info-item" v-if="item.isHasTasks">
                                     <span class="info-tip">任务内容：</span>

@@ -9,7 +9,7 @@
                 </mt-button>
             </mt-header>
             <mt-navbar v-model="active">
-                <mt-tab-item id="1" @click.native="distributeTask">已派发</mt-tab-item>
+                <mt-tab-item id="1" @click.native="distributeTask">待处理</mt-tab-item>
                 <mt-tab-item id="2" class="handle-task" @click.native="taskHandle">处理中</mt-tab-item>
                 <mt-tab-item id="3" @click.native="taskEnd">已完成</mt-tab-item>
             </mt-navbar>
