@@ -2,7 +2,7 @@
     <div class="end-task-box">
         <div v-if="isHasData">
             <div class="main-box" v-for="(item,index) in swiperDatas" :key="index" :style="{ backgroundColor: item.color }">
-                <span class="min-box hide">2分钟前</span>
+                <span class="min-box hide">{{ item.endTime }}</span>
                 <div class="border-box">
                     <ul class="task-info-box">
                         <li class="info-item">
@@ -71,16 +71,14 @@ export default {
     data() {
         return {
             opts: {
-                batchNo: 'HY20171024100408',
-                sort: '1',
+                batchNo: '',
+                sort: '',
                 params: {}
             },
             emptryText: '暂没有数据',
             isHasData: false,
             isShowSuccessBtn: false,
-            swiperDatas: [
-
-            ],
+            swiperDatas: [],
         }
     },
     created() {
@@ -167,7 +165,8 @@ export default {
                     productName: tempObj.productName,
                     linkName: tempObj.linkIdName,
                     taskDesc: '',
-                    distributeTime: tempDate
+                    distributeTime: tempDate,
+                    endTime: tempObj.timeShow
                 }
                 tasks = tempObj.keyValueLists;
                 if (tasks.length > 0) {
@@ -318,6 +317,9 @@ export default {
             width: 43%;
             float: left;
             display: inline-block;
+            height: 1.33rem;
+            line-height: 1.33rem;
+            overflow: hidden;
         }
         .info-txt {
             width: 57%;
@@ -327,6 +329,7 @@ export default {
                 width: 92%;
                 height: 1rem;
                 line-height: 1rem;
+                overflow: hidden;
                 border: 0px;
                 background-color: $m-black--f3f;
                 padding-left: 4%;

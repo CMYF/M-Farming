@@ -1,6 +1,6 @@
 <template>
     <div class="container-box">
-        <div class="container-sub-box">
+        <div class="container-sub-box ">
             <div class="logo-box">
                 <img src="./../assets/images/login-logo.png" alt="">
             </div>
@@ -11,7 +11,7 @@
                 </div>
                 <div class="form-item-box">
                     <span class="iconfont user-pass-box user-icon">&#xe7d8;</span>
-                    <mt-field class="form-item user-pass" type="password" placeholder="请输入密码" v-model="loginForm.pass"></mt-field>
+                    <mt-field class="form-item user-pass" v-lFcous type="password" placeholder="请输入密码" v-model="loginForm.pass"></mt-field>
                 </div>
             </div>
             <span class="err-info" :style="{ visibility: this.isShowError }">{{ this.errInfo }}</span>
@@ -26,13 +26,40 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
 import store from './../store/index'
 import _C from './../utils/_C'
+import _j from 'jquery'
+import { isAndroid, isIos } from './../utils/checkEnvironment'
 function fetchLogin(store, opts) {
     return store.dispatch('LOGIN', opts);
 }
+Vue.directive('lFcous', function(el, pra, a) {
+    let oInput = el.querySelector('input');
+    if (isAndroid()) {
+        oInput.onfocus = function() {
+            let boxDom = _j('.container-sub-box');
+            //创建focus的事件
+            //boxDom.addClass('marBotToTop');
+            boxDom.animate({
+                'margin-top': '-100px'
+            }, 300);
+        };
+        oInput.onblur = function() {
+            let boxDom = _j('.container-sub-box');
+            //同时创建blur事件
+            boxDom.animate({
+                'margin-top': '0px'
+            }, 300);
+        };
+    }
+
+})
 export default {
     store,
+    directives: {
+
+    },
     data() {
         return {
             isShowNav: false,
@@ -71,6 +98,9 @@ export default {
                 }
             });
         },
+        isFocus() {
+            console.log('a');
+        }
     }
 }
 </script>
@@ -81,12 +111,14 @@ export default {
 .footer-box {
     display: none !important;
 }
-.container-box{
+
+.container-box {
     width: 100vw;
     width: 100%;
     height: 100vh;
-    background: #f5f5f5 ;
+    background: #f5f5f5;
 }
+
 .container-sub-box {
     @include rem(( width: 667px));
     height: 100vh;

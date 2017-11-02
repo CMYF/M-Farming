@@ -3,7 +3,7 @@
         <mt-spinner class="loading-icon" type="fading-circle" color="#02bdad" v-show="isShowLoadingIcon"></mt-spinner>
         <div v-show="isHasData">
             <div class="main-box" v-for="(item,index) in swiperDatas" :key="index" :style="{ backgroundColor: item.color }">
-                <span class="min-box">{{ item.timeShow }}</span>
+                <span class="min-box">{{ item.endTime }}</span>
                 <div class="border-box">
                     <ul class="task-info-box">
                         <li class="info-item">
@@ -205,7 +205,7 @@ export default {
     }
     .min-box {
         width: 99%;
-        height: .53rem;
+        height: 1rem;
         display: block;
         @include font-dpr(15px, 1rem);
         text-align: right;
