@@ -44,6 +44,21 @@ export default {
         TaskOff
     },
     store,
+    beforeRouteLeave: (to, from, next) => {
+        let tempFrom = to;
+        let path = tempFrom.path;
+        if (path === '/login') {
+            let token = localStorage.token;
+            if (!token) {
+                next();
+                return;
+            } else {
+                next('/home');
+            }
+        } else {
+            next();
+        }
+    },
     data() {
         return {
             active: '1',
@@ -105,8 +120,8 @@ export default {
         }
 
     },
-    beforeDestoryed(){
-        
+    beforeDestoryed() {
+
     },
 }
 </script>

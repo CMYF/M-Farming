@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/test'
-import Login from '@/views/Login'
+import APPLogin from '@/views/app_login'
 import Home from '@/views/_Index'
 import MyCenter from '@/views/MyCenter'
 import TaskList from '@/views/HomePage'
 Vue.use(Router)
-
 export default new Router({
- // base: '/html/appagriculture/',
+  // base: '/html/appagriculture/',
   routes: [
     {
       path: '/',
@@ -17,6 +16,7 @@ export default new Router({
         Home: Home,
         Login: ''
       },
+
       children: [
         {
           path: '/home',
@@ -38,10 +38,10 @@ export default new Router({
       path: '/login',
       name: 'Login',
       components: {
-        Login: Login,
-
+        Login: APPLogin
       }
     },
 
   ]
+
 })

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <router-view name="Login"/>
-    <router-view name="Home"/>
-   <!--  <c-footer></c-footer> -->
+    <router-view name="Login" />
+    <router-view name="Home" />
+    <!--  <c-footer></c-footer> -->
   </div>
 </template>
 
@@ -10,7 +10,15 @@
 //import CFooter from './components/Footer'
 export default {
   components: {
-   // CFooter
+    // CFooter
+  },
+  beforeCreate() {
+
+  },
+  created() {
+  },
+  mounted() {
+
   },
   name: 'app'
 }
@@ -29,7 +37,8 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
-.hide{
+
+.hide {
   display: none;
 }
 </style>
