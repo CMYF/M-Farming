@@ -32,7 +32,7 @@ import Distributed from './../components/Distributed'
 import InHand from './../components/InHand'
 import TaskOff from './../components/TaskOff'
 import bus from './../eventBus'
-import store from './../store/index'
+//import store from './../store/index'
 import _cookie from './../utils/_C'
 function fetchGetDistributeTask(store, opts) {
     return store.dispatch('GET_DISTRIBUTE_TASK', opts);
@@ -43,7 +43,7 @@ export default {
         InHand,
         TaskOff
     },
-    store,
+   // store,
     beforeRouteLeave: (to, from, next) => {
         let tempFrom = to;
         let path = tempFrom.path;

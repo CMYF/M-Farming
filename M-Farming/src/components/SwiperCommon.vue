@@ -49,7 +49,6 @@
     </div>
 </template>
 <script>
-import _j from 'jquery'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import store from './../store/index'
 function fetchGetDistributeTask(store, opts) {

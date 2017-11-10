@@ -9,7 +9,6 @@
     </div>
 </template>
 <script>
-import _j from 'jquery'
 export default {
     data() {
         return {

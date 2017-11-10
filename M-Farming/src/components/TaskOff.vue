@@ -48,14 +48,11 @@
     </div>
 </template>
 <script>
-import _j from 'jquery'
 import bus from './../eventBus'
-import store from './../store/index'
 function fetchGetDistributeTask(store, opts) {
     return store.dispatch('GET_DISTRIBUTE_TASK', opts);
 }
 export default {
-    store,
     data() {
         return {
             opts: {

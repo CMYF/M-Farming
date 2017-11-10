@@ -53,10 +53,9 @@
     </div>
 </template>
 <script>
-import _j from 'jquery'
 import bus from './../eventBus'
 import tempData from './../assets/temp'
-import store from './../store/index'
+//import store from './../store/index'
 function fetchGetHandleInfos(store, opts) {
     return store.dispatch('GET_HANDLE_TASKS', opts)
 }
@@ -67,7 +66,7 @@ function fetchGetBatchNo(store, opts) {
     return store.dispatch('GET_BATCH_INFO', opts);
 }
 export default {
-    store,
+    //store,
     data() {
         return {
             opts: {

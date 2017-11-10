@@ -69,5 +69,11 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      _j: "jquery"
+    })
+  ]
 }

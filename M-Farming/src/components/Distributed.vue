@@ -56,10 +56,8 @@
     </div>
 </template>
 <script>
-import _j from 'jquery'
 import bus from './../eventBus'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import store from './../store/index'
 function fetchGetDistributeTask(store, opts) {
     return store.dispatch('GET_DISTRIBUTE_TASK', opts);
 }
@@ -68,7 +66,6 @@ export default {
         swiper,
         swiperSlide
     },
-    store,
     data() {
         return {
             swiperOption: {
@@ -102,7 +99,6 @@ export default {
         bus.$on('get-distribute-task', self.emitGetTasks)
     },
     mounted() {
-
     },
     methods: {
         showMoreLinkInfo(e) {
